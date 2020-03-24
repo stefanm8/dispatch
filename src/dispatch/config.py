@@ -5,6 +5,11 @@ import base64
 from starlette.config import Config
 from starlette.datastructures import CommaSeparatedStrings
 
+# Sliencing errors about no default values
+class DefaultConfig(Config):
+    def __call__(self, key, cast=None, default=""):
+        return self.get(key, cast, default)
+
 # if we have metatron available to us, lets use it to decrypt our secrets in memory
 try:
     import metatron.decrypt
@@ -35,7 +40,7 @@ except Exception:
     from starlette.datastructures import Secret
 
 
-config = Config(".env")
+config = DefaultConfig(".env")
 
 LOG_LEVEL = config("LOG_LEVEL", default=logging.WARNING)
 ENV = config("ENV", default="local")

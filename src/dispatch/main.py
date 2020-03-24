@@ -16,7 +16,7 @@ from .api import api_router
 from .config import STATIC_DIR
 from .database import SessionLocal
 from .metrics import provider as metric_provider
-from .logging import configure_logging
+from .log import configure_logging
 from .extensions import configure_extensions
 
 log = logging.getLogger(__name__)

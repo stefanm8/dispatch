@@ -23,6 +23,13 @@ services:
       PGADMIN_DEFAULT_EMAIL: dispatch@netflix.com
       PGADMIN_DEFAULT_PASSWORD: admin
     restart: unless-stopped
-
+  web:
+      env_file:
+        - ./.env
+      build: ../.
+      command: ["server", "start", "dispatch.main:app", "--host=0.0.0.0"]
+      ports:
+        - "8000:8000"
+  
 volumes:
   postgres-data:
