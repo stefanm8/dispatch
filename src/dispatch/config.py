@@ -42,14 +42,14 @@ except Exception:
 
 config = DefaultConfig(".env")
 
-LOG_LEVEL = config("LOG_LEVEL", default=logging.WARNING)
+LOG_LEVEL = config("LOG_LEVEL", default=logging.DEBUG)
 ENV = config("ENV", default="local")
 
 DISPATCH_HELP_EMAIL = config("DISPATCH_HELP_EMAIL")
 DISPATCH_HELP_SLACK_CHANNEL = config("DISPATCH_HELP_SLACK_CHANNEL")
 
 # authentication
-JWKS_URL = config("JWKS_URL")
+JWKS_URL = config("JWKS_URL", default="127.0.0.1:8000")
 
 DEFAULT_STATIC_DIR = os.path.join(
     os.path.abspath(os.path.dirname(__file__)), "static/dispatch/dist"

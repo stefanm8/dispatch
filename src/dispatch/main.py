@@ -2,6 +2,7 @@ import time
 import logging
 from tabulate import tabulate
 from os import path
+# import pdb; pdb.set_trace()
 
 # from starlette.middleware.gzip import GZipMiddleware
 from fastapi import FastAPI
@@ -13,7 +14,6 @@ from starlette.responses import FileResponse, Response
 from starlette.staticfiles import StaticFiles
 
 from .api import api_router
-from .config import STATIC_DIR
 from .database import SessionLocal
 from .metrics import provider as metric_provider
 from .log import configure_logging

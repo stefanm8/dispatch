@@ -8,9 +8,11 @@ import click
 
 from dispatch.plugins.base import plugins
 from .dynamic_click import params_factory
+from dispatch.config import LOG_LEVEL
 
 
 logger = logging.getLogger(__name__)
+logger.setLevel(LOG_LEVEL)
 
 
 def chunk(l, n):
@@ -35,7 +37,6 @@ def install_plugins():
     from dispatch.plugins.base import register
 
     for ep in pkg_resources.iter_entry_points("dispatch.plugins"):
-        logger.debug(f"Loading plugin {ep.name}")
         try:
             plugin = ep.load()
         except Exception:
@@ -43,6 +44,9 @@ def install_plugins():
 
             logger.error(f"Failed to load plugin {ep.name}:{traceback.format_exc()}")
         else:
+            if not plugin.enabled:
+                continue
+            logger.debug(f"Loading plugin {ep.name}")
             register(plugin)
 
 
